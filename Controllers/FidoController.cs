@@ -15,12 +15,6 @@ namespace Passwordless_Authn.Controllers
             this.fido = fido;
         }
 
-        [Authorize]
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         [Authorize, HttpGet, Route("StartRegistration")]
         public IActionResult StartRegistration()
         {
@@ -45,6 +39,18 @@ namespace Passwordless_Authn.Controllers
             }
 
             return Ok();
+        }
+
+        [HttpPost, Route("Login")]
+        public async Task<IActionResult> Login(string? userId)
+        {
+            if(userId is null)
+            {
+                return BadRequest("Email is empty");
+            }
+
+            var challenge = await fido.InitiateAuthentication(userId);
+            return View(challenge.ToBase64Dto());
         }
     }
 }

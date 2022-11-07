@@ -38,6 +38,13 @@ namespace Passwordless_Authn.Controllers
 			return Redirect(redirUrl);
 		}
 
+		[HttpGet, Route("Logout")]
+		public async Task<IActionResult> Logout()
+		{
+			await HttpContext.SignOutAsync("Cookies");
+			return Redirect("\\");
+		}
+
 		private static IEnumerable<LoginModel> people = new List<LoginModel>
 		{
 			new LoginModel("tom@gmail.com", "12345"),
