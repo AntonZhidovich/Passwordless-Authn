@@ -12,74 +12,15 @@
 	<body>
 		<h2>Use your authenticator</h2>
 		<p>Follow the instructions on your screen, @Model.UserId.</p>
-<script src="~/js/jquery.js"></script>
-<script src="~/js/bootstrap.js"></script>
-<script>
-    let challengeBytesAsString = atob("@Html.Raw(Model.Base64Challenge)");
-    let challenge = new Uint8Array(challengeBytesAsString.length);
-    for (let i = 0; i < challengeBytesAsString.length; i++) {
-      challenge[i] = challengeBytesAsString.charCodeAt(i);
-    }
-    const pbc =  [
-        { type: "public-key", alg: -7 },
-        { type: "public-key", alg: -257},
-    ];
-    let rp = { id: "@Model.RelyingPartyId", name: "Fido test server" };
-    let userHandleBytes = atob("@Html.Raw(Model.Base64UserHandle)");
-    let userHandle = new Uint8Array(userHandleBytes.length);
-    for (let i = 0; i < userHandleBytes.length; i++){
-        userHandle[i] = userHandleBytes.charCodeAt(i);
-    }
-    let user = {
-        name: "@Model.UserId",
-        displayName: "@Model.UserId",
-        id: userHandle
-    };
-    let as = {
-        authenticatorAttachment: "platform",
-        userVerification: "required"
-    };
-
-    let options = {
-        rp,
-        user,
-        challenge,
-        pubKeyCredParams : pbc,
-        timeout: 1800000,
-        attestation: "none",
-        authenticatorSelection : as
-    }
-
-    navigator.credentials.create({ publicKey: options })
-        .then((credentials) => {
-            let encCreds = {
-                id: credentials.id,
-                rawId: btoa(String.fromCharCode.apply(null, new Uint8Array(credentials.rawId))),
-                type: credentials.type,
-                response: {
-                    attestationObject:
-                    btoa(String.fromCharCode.apply(null, new Uint8Array(credentials.response.attestationObject))),
-                    clientDataJSON:
-                    btoa(String.fromCharCode.apply(null, new Uint8Array(credentials.response.clientDataJSON)))
-                }
-            };
-        
-            $.ajax({
-                url: '/Fido/CompleteRegistration',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(encCreds),
-                success: function(){
-                    window.location.href = "/";
-                },
-                error: function(){
-                    console.error("Error in sendings credentials to the server.");
-                }
-            })
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-</script>
+		<form id="register-form" method="post">
+			<button type="submit">submit</button>
+		</form>
+		<script>
+			var challengeInput = "@Html.Raw(Model.Base64Challenge)";
+			var relPartyInput = "@Model.RelyingPartyId";
+			var userHandleInput = "@Html.Raw(Model.Base64UserHandle)";
+			var userIdInput = "@Model.UserId";
+		</script>
+	<script src="~/js/fido.register.js"></script>
 	</body>
 </html>

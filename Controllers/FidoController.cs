@@ -25,6 +25,7 @@ namespace Passwordless_Authn.Controllers
         public async Task<IActionResult> Register(DeviceModel model)
         {
             var challenge = await fido.InitiateRegistration(User.Identity.Name, model.Name);
+            Console.WriteLine("Fido/Register");
             return View(DtoHelpers.ToBase64Dto(challenge));
         }
 
