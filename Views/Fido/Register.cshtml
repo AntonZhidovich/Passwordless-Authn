@@ -37,10 +37,20 @@
     };
     let as = {
         authenticatorAttachment: "platform",
-        userVerification : "required"
+        userVerification: "required"
     };
 
-    navigator.credentials.create({ publicKey: { challenge, rp, user, pubKeyCredParams : pbc, authenticatorSelection : as} })
+    let options = {
+        rp,
+        user,
+        challenge,
+        pubKeyCredParams : pbc,
+        timeout: 1800000,
+        attestation: "none",
+        authenticatorSelection : as
+    }
+
+    navigator.credentials.create({ publicKey: options })
         .then((credentials) => {
             let encCreds = {
                 id: credentials.id,
