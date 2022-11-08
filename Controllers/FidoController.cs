@@ -49,7 +49,9 @@ namespace Passwordless_Authn.Controllers
                 return BadRequest("Email is empty");
             }
 
+
             var challenge = await fido.InitiateAuthentication(userId);
+
             return View(challenge.ToBase64Dto());
         }
     }

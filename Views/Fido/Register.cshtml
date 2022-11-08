@@ -37,7 +37,7 @@
     };
     let as = {
         authenticatorAttachment: "platform",
-        userVerification : "preferred"
+        userVerification : "required"
     };
 
     navigator.credentials.create({ publicKey: { challenge, rp, user, pubKeyCredParams : pbc, authenticatorSelection : as} })
