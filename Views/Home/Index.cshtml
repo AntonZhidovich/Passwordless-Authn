@@ -5,18 +5,23 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>Index</title>
+		<title>Main page</title>
+		<link rel="stylesheet" type="text/css" href="~/css/main.css">
 	</head>
 	<body>
+		<section>
 		<h1>Main page</h1>
-		<form method="get" action ="~/Fido/StartRegistration">
-			<button>Register a new credential</button>
-		</form>
+		<div class="buttons">
 		<form method="get" action ="~/Account/Login">
-			<button>Login</button>
+			<button class="BtnLog">Login</button>
+			<form method="get" action ="~/Fido/StartRegistration">
+			<button class="BtnRegCred">Register a new credential</button>
+		</form>
 		</form>
 			<form method="get" action ="~/Account/Logout">
-			<button>Log out</button>
+			<button class="BtnLog">Log out</button>
 		</form>
+		</div>
+		</section>
 	</body>
 </html>
