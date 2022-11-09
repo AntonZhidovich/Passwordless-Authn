@@ -2,30 +2,31 @@
 	Layout = null;
 }
 <!doctype html>
-<head><title>Authentication</title>
+<head>
+	<title>Authentication</title>
 	<meta charset="utf-8" />
-	</head>
+	<link rel="stylesheet" type="text/css" href="~/css/login.css">
+</head>
 <html>
 	<body>
 	<section>
 	<h1>Authentication</h1>
+	<h2 class="inputEmPass">Input your email and password to login</h2>
 	<form method="post">
 		<p>
-			<label class="legend">Email</label>
-			<input class = "em" name="email" />
+			<input class = "em" name="email" placeholder="Email"/>
 		</p>
 		<p>
-			<label class="legend">Password</label>
-			<input class = "pass" type="password" name="password" />
+			<input class = "pass" type="password" name="password" placeholder="Password" />
 		</p>
-		<div class="btns"><input class = "btnSignIn" type="submit" value="Sign in"/></div>
+		<div class="bt"><input class = "btns" type="submit" value="Sign in"/></div>
 	</form>
+	<h1 class="FIDOsign">Or sign in with FIDO</h1>
 	<form method="post" action="~/fido/login">
 		<p>
-			<label class="legend">Email</label>
-			<input class = "em" name="userId" />
+			<input class = "em" name="userId" placeholder="Email" />
 		</p>
-		<div class="btns"><input class = "btnSignIn" type="submit" value="Sign wigh FIDO"/></div>
+		<div class="bt"><input class = "btns" type="submit" value="Sign with FIDO"/></div>
 	</form>
 	</section>
 	</body>
