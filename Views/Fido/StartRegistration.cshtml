@@ -6,13 +6,18 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Registration page</title>
+	<link rel="stylesheet" type="text/css" href="~/css/main.css">
+	<link rel="stylesheet" type="text/css" href="~/css/startRegistration.css">
 </head>
 <html>
 	<body>
+
+		<section>
+			<h2 class="CredName">Input your credential name</h2>
 		<form method="post" action="Register">
-			<label>Credential name</label>
-			<input name="name" />
-			<button>Register</button>
+			<input class = "nameForm" name="name" placeholder="Credential name"  /><br>
+			<button class="BtnRegCredStart">Register</button>
 		</form>
+		</section>
 	</body>
 </html>
