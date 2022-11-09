@@ -1,0 +1,48 @@
+﻿
+section {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+
+.authenticate {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0 0 20px 0px;
+    font-size: 28px;
+    color: #004b4e;
+}
+
+.instruction {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0 0 20px 0px;
+    font-size: 20px;
+    color: #004b4e;
+}
+
+.btn {
+    text-decoration: none;
+    display: inline-block;
+    width: 140px;
+    height: 45px;
+    line-height: 10px;
+    border-radius: 45px;
+    margin: 10px 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 3px;
+    font-weight: 600;
+    color: black;
+    background: rgb(240, 240, 240);
+    transition: .3s;
+    margin-left: 170px;
+}
+
+    .btn:hover {
+        background: #004b4e;
+        color: white;
+        transform: translateY(-7px);
+    }

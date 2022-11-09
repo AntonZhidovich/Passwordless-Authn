@@ -6,21 +6,25 @@
 <!doctype html>
 <head>
 	<meta charset="utf-8" />
-<title>Credential registration</title>
+	<title>Credential registration</title>
+	<link rel="stylesheet" type="text/css" href="~/css/register.css">
 </head>
 <html>
 	<body>
-		<h2>Use your authenticator</h2>
-		<p>Follow the instructions on your screen, @Model.UserId.</p>
+		<section>
+		<h2 class="authenticate">Use your authenticator</h2>
+		<p class="instruction">Follow the instructions on your screen, @Model.UserId.</p>
 		<form id="register-form" method="post">
-			<button type="submit">submit</button>
+			<button class = "btn" type="submit">submit</button>
 		</form>
+		</section>
 		<script>
 			var challengeInput = "@Html.Raw(Model.Base64Challenge)";
 			var relPartyInput = "@Model.RelyingPartyId";
 			var userHandleInput = "@Html.Raw(Model.Base64UserHandle)";
 			var userIdInput = "@Model.UserId";
 		</script>
+	
 	<script src="~/js/fido.register.js"></script>
 	</body>
 </html>
