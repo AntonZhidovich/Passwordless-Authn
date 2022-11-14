@@ -1,0 +1,27 @@
+﻿@using Newtonsoft.Json
+@model Rsk.AspNetCore.Fido.Dtos.Base64FidoAuthenticationChallenge
+@{
+	Layout = null;
+}
+
+<!doctype html>
+<head>
+	<meta charset="utf-8" />
+	<title>FIDO login</title>
+</head>
+
+<html>
+	<body>
+		<h2>Use your authenticator</h2>
+		<p>Follow the instructions on your screen, @Model.UserId</p>
+		<form id="login-form" method="post">
+			<button type="submit">submit</button>
+		</form>
+		<script> 
+			var challengeInput = "@Html.Raw(Model.Base64Challenge)";
+			var keysInput = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model.Base64KeyIds))');
+			var rpIdInput = "@Html.Raw(Model.RelyingPartyId)";
+		</script>
+		<script src="~/js/fido.login.js"></script>
+	</body>
+</html>

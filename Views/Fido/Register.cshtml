@@ -1,4 +1,5 @@
-﻿@model Rsk.AspNetCore.Fido.Dtos.Base64FidoRegistrationChallenge;
+﻿@using Newtonsoft.Json
+@model Rsk.AspNetCore.Fido.Dtos.Base64FidoRegistrationChallenge
 @{
 	Layout = null;
 }
@@ -23,8 +24,9 @@
 			var relPartyInput = "@Model.RelyingPartyId";
 			var userHandleInput = "@Html.Raw(Model.Base64UserHandle)";
 			var userIdInput = "@Model.UserId";
+			var displayNameInput = "@Html.Raw(Model.DeviceFriendlyName)";
+			var excludeKeyIds = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model.Base64ExcludedKeyIds))');
 		</script>
-	
 	<script src="~/js/fido.register.js"></script>
 	</body>
 </html>

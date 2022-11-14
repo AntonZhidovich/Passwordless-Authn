@@ -7,16 +7,23 @@ namespace Passwordless_Authn.Controllers
 {
     [Route("Account")]
     public class AccountController : Controller
-    {
+	{ 
+
         [HttpGet, Route("Login")]
         public IActionResult Login()
         {
-            return View();
+			if (User.Identity.IsAuthenticated)
+			{
+				return Content("You are already authorized!");
+			}
+
+			return View();
         }
 
 		[HttpPost, Route("Login")]
 		public async Task<IActionResult> Login(string? returnUrl, string? email, string? password)
 		{
+
 			if (email is null || password is null)
 			{
 				return new BadRequestObjectResult("Email or password is empty.");
@@ -45,12 +52,13 @@ namespace Passwordless_Authn.Controllers
 			return Redirect("\\");
 		}
 
-		private static IEnumerable<LoginModel> people = new List<LoginModel>
+		internal static IEnumerable<LoginModel> people = new List<LoginModel>
 		{
 			new LoginModel("tom@gmail.com", "12345"),
 			new LoginModel("bob@gmail.com", "55555"),
 			new LoginModel("anton.zhidovich@gmail.com", "7777"),
 			new LoginModel("alexlubenko172@gmail.com", "1313")
 		};
+
 	}
 }

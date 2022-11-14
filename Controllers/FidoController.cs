@@ -2,7 +2,9 @@
 using Rsk.AspNetCore.Fido.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
 using Passwordless_Authn.Models;
+using System.Security.Claims;
 
 namespace Passwordless_Authn.Controllers
 {
@@ -25,7 +27,6 @@ namespace Passwordless_Authn.Controllers
         public async Task<IActionResult> Register(DeviceModel model)
         {
             var challenge = await fido.InitiateRegistration(User.Identity.Name, model.Name);
-            Console.WriteLine("Fido/Register");
             return View(DtoHelpers.ToBase64Dto(challenge));
         }
 
@@ -45,15 +46,46 @@ namespace Passwordless_Authn.Controllers
         [HttpPost, Route("Login")]
         public async Task<IActionResult> Login(string? userId)
         {
-            if(userId is null)
+            if (userId is null)
+                return BadRequest("Empty userId.");
+
+            LoginModel? res = AccountController.people.FirstOrDefault(p => p.Email == userId);
+            if (res is null)
             {
-                return BadRequest("Email is empty");
+                return new UnauthorizedObjectResult("Invalid email.");
             }
 
+            try
+            {
+                var challenge = await fido.InitiateAuthentication(userId);
+                return View(challenge.ToBase64Dto());
+            }
+            catch (PublicKeyCredentialException e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
 
-            var challenge = await fido.InitiateAuthentication(userId);
-
-            return View(challenge.ToBase64Dto());
+        [HttpPost, Route("CompleteLogin")]
+        public async Task<IActionResult> CompleteLogin(
+            [FromBody] Base64FidoAuthenticationResponse authenticationResponse)
+        {
+            var result = await fido.CompleteAuthentication(authenticationResponse.ToFidoResponse());
+            if (result.IsSuccess)
+            {
+                LoginModel? res = AccountController.people.First(p => p.Email == result.UserId);
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, res.Email)
+                };
+                ClaimsIdentity identity = new ClaimsIdentity(claims, "WebAuthn");
+                await HttpContext.SignInAsync("Cookies", new ClaimsPrincipal(identity));
+            }
+            else
+            {
+                return BadRequest("Error in completing the authentication.");
+            }
+            return Redirect("/");
         }
     }
 }

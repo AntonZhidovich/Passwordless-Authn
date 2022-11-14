@@ -20,13 +20,26 @@ async function handleRegisterSubmit(event) {
     }
     let user = {
         name: userIdInput,
-        displayName: userIdInput,
+        displayName: displayNameInput,
         id: userHandle
     };
+    console.log(user.displayName);
     let as = {
         authenticatorAttachment: "platform",
         userVerification: "required"
     };
+
+    let excludeCreds = [];
+    if (excludeKeyIds) {
+        for (let key of excludeKeyIds) {
+            let keyIdString = atob(key);
+            let keyArr = new Uint8Array(keyIdString.length);
+            for (let i = 0; i < keyIdString.length; i++) {
+                keyArr[i] = keyIdString.charCodeAt(i);
+            }
+            excludeCreds.push(keyArr);
+        }
+    }
 
     let options = {
         rp,
@@ -35,7 +48,8 @@ async function handleRegisterSubmit(event) {
         pubKeyCredParams: pbc,
         timeout: 1800000,
         attestation: "none",
-        authenticatorSelection: as
+        authenticatorSelection: as,
+        excludeCredentials: excludeCreds
     }
 
     let credentials;
