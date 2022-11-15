@@ -1,4 +1,5 @@
-﻿@using Newtonsoft.Json
+﻿@using System
+@using Newtonsoft.Json
 @model Rsk.AspNetCore.Fido.Dtos.Base64FidoAuthenticationChallenge
 @{
 	Layout = null;
@@ -22,9 +23,6 @@
 			var keysInput = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model.Base64KeyIds))');
 			var rpIdInput = "@Html.Raw(Model.RelyingPartyId)";
 		</script>
-		<script>
-			var timestamp = System.DateTime.Now.ToString("yyyyMMddHHmmssfff");
-		</script>
-		<script src="~/js/fido.login.js?timestamp"></script>
+		<script src="~/js/fido.login.js?@DateTime.Now.ToString("yyyyMMddHHmmssfff")"></script>
 	</body>
 </html>
