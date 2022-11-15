@@ -59,6 +59,7 @@ async function handleRegisterSubmit(event) {
     }
     catch (e) {
         console.log("Error in creating credentials.");
+        console.log(e);
         return;
     }
 
