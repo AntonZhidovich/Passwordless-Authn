@@ -64,7 +64,6 @@ async function handleRegisterSubmit(event) {
 
     try {
         response = await sendResponce(encCreds);
-        window.location.href = "/";
     }
     catch (e) {
         console.log(e);
