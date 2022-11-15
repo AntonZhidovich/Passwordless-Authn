@@ -29,18 +29,6 @@ async function handleRegisterSubmit(event) {
         userVerification: "required"
     };
 
-    let excludeCreds = [];
-    if (excludeKeyIds) {
-        for (let key of excludeKeyIds) {
-            let keyIdString = atob(key);
-            let keyArr = new Uint8Array(keyIdString.length);
-            for (let i = 0; i < keyIdString.length; i++) {
-                keyArr[i] = keyIdString.charCodeAt(i);
-            }
-            excludeCreds.push(keyArr);
-        }
-    }
-
     let options = {
         rp,
         user,
@@ -49,7 +37,6 @@ async function handleRegisterSubmit(event) {
         timeout: 1800000,
         attestation: "none",
         authenticatorSelection: as,
-        excludeCredentials: excludeCreds
     }
 
     let credentials;

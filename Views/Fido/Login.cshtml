@@ -23,6 +23,6 @@
 			var keysInput = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model.Base64KeyIds))');
 			var rpIdInput = "@Html.Raw(Model.RelyingPartyId)";
 		</script>
-		<script src="~/js/fido.login.js?@DateTime.Now.ToString("yyyyMMddHHmmssfff")"></script>
+		<script src="~/js/fido.login.js"></script>
 	</body>
 </html>

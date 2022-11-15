@@ -28,6 +28,6 @@
 			var displayNameInput = "@Html.Raw(Model.DeviceFriendlyName)";
 			var excludeKeyIds = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model.Base64ExcludedKeyIds))');
 		</script>
-	<script src="~/js/fido.register.js?@DateTime.Now.ToString("yyyyMMddHHmmssfff")"></script>
+	<script src="~/js/fido.register.js"></script>
 	</body>
 </html>
