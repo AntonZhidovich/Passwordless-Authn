@@ -62,6 +62,8 @@ async function handleRegisterSubmit(event) {
         }
     };
 
+    console.log(encCreds);
+
     try {
         response = await sendResponce(encCreds);
     }
