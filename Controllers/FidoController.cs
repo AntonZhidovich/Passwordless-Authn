@@ -37,7 +37,7 @@ namespace Passwordless_Authn.Controllers
             var result = await fido.CompleteRegistration(response.ToFidoResponse());
             if (result.IsError)
             {
-                return BadRequest(result.IsError);
+                return BadRequest("Error in the CompleteRegistration action on the server side.");
             }
 
             return Ok();
