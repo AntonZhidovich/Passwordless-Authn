@@ -30,8 +30,8 @@ async function handleRegisterSubmit(event) {
     };
 
     let options = {
-        rp,
-        user,
+        rp: rp,
+        user: user,
         challenge,
         pubKeyCredParams: pbc,
         timeout: 1800000,
