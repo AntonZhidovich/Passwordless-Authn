@@ -23,7 +23,6 @@ async function handleRegisterSubmit(event) {
         displayName: displayNameInput,
         id: userHandle
     };
-    console.log(user.displayName);
     let as = {
         authenticatorAttachment: "platform",
         userVerification: "required"
@@ -62,7 +61,7 @@ async function handleRegisterSubmit(event) {
         }
     };
 
-    console.log(encCreds);
+    console.log(encCreds)
 
     try {
         response = await sendResponce(encCreds);
