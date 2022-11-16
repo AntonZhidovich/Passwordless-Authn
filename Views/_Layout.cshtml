@@ -1,0 +1,35 @@
+﻿@using System.Security.Claims
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    
+</head>
+<style>
+    .usName{
+        font-family: 'Montserrat', sans-serif;
+        font-size: 20px;
+        color: #004b4e;
+        font-weight:800;
+    }
+    div{
+        display:flex;
+        margin: 0px 0px 0px 1100px;
+    }
+</style>
+<body>
+    <div>
+        <p class="usName">
+                @if(User.Identity.IsAuthenticated){ 
+                    @: @User.Identity.Name 
+                } 
+                else{ 
+                    @: Unauthorized 
+                }
+        </p>
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>
