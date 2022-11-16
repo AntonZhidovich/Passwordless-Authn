@@ -9,14 +9,17 @@
 <head>
 	<meta charset="utf-8" />
 	<title>FIDO login</title>
+	<link rel="stylesheet" type="text/css" href="~/css/login.css">
 </head>
 
+</styles>
 <html>
 	<body>
+		<section>
 		<h2>Use your authenticator</h2>
 		<p>Follow the instructions on your screen, @Model.UserId</p>
 		<form id="login-form" method="post">
-			<button type="submit">submit</button>
+			<button class ="btns" type="submit">submit</button>
 		</form>
 		<script> 
 			var challengeInput = "@Html.Raw(Model.Base64Challenge)";
@@ -24,5 +27,6 @@
 			var rpIdInput = "@Html.Raw(Model.RelyingPartyId)";
 		</script>
 		<script src="~/js/fido.login.js"></script>
+		</section>
 	</body>
 </html>
